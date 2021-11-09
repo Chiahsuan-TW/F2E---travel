@@ -1,0 +1,14 @@
+$primary-color: #08A6BB;
+$black: #525151;
+$dark-gray: #6F7789;
+$pale-gray: #AEAEAE;
+
+
+%title {
+  color: $primary-color;
+  font-family: Roboto;
+  font-style: italic;
+  font-weight: 900;
+  font-size: 30px;
+}
+
