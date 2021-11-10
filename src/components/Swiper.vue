@@ -17,7 +17,7 @@
           <input v-model="selectedCounty" v-for="(county, index) in counties" :key="index" :value="county" type="radio" :id="county" name="county">
         </div>
       </div>
-      <input type="submit">
+      <input @submit.prevent="onSubmit" type="submit">
       
     </div>
   </div>
@@ -25,6 +25,7 @@
 
 <script>
 export default {
+  name: "Swiper",
   
   data() {
     return {
@@ -42,6 +43,9 @@ export default {
     },
     toggleShowCounty() {
       this.showCounty = !this.showCounty
+    },
+    onSubmit() {
+      console.log('TEST')
     }
   },
 

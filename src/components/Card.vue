@@ -1,16 +1,17 @@
 <template>
-  <div class="card">
-    <div class="card-image"><img src="../assets/images/card-image.png" alt=""></div>
+  <div v-if="travelData" class="card">
+    <div v-if="travelData.Picture.PictureUrl1" class="card-image"><img :src="travelData.Picture.PictureUrl1" alt=""></div>
+    <div v-else class="card-image"><img src="../assets/images/card-image.png" alt=""></div>
     <div class="card-content">
       <div class="card-content-title">
-        <h3>{{scenicSpot.Name}}</h3>
+        <h3>{{travelData.Name}}</h3>
         <div class="open-time">
-          <span>{{scenicSpot.OpenTime}}</span>
+          <span>{{trimOpenTime}}</span>
         </div>
       </div>
       <div class="card-content-detail">
         <div class="pin"><img src="../assets/images/pin.png" alt=""></div>
-        <p>{{scenicSpot.Adress}}</p>
+        <p>{{travelData.Address}}</p>
       </div>
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-primary moreInfo" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -19,20 +20,38 @@
 
     <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>{{travelData.Description}}</p>
+              <div v-if="travelData.Picture.PictureUrl1" class="card-image"><img :src="travelData.Picture.PictureUrl1" alt=""></div>
+              <div v-else class="card-image"><img src="../assets/images/card-image.png" alt=""></div>
+            </div>
+            <div class="modal-footer">
+              <div class="open-time">
+                <div class="icon"><img src="" alt=""></div>
+                <span>{{travelData.OpenTime}}</span>
+              </div>
+              <div class="admission">
+                <div class="icon"><img src="" alt=""></div>
+                <span>{{travelData.TicketInfo}}</span>
+              </div>
+              <div class="contact">
+                <div class="icon"><img src="" alt=""></div>
+                <span>{{travelData.Phone}}</span>
+              </div>
+              <div class="category">
+                <div class="icon"><img src="" alt=""></div>
+                <span>{{travelData.Class1}}</span>
+              </div>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
         </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
       </div>
     </div>
   </div>
@@ -40,30 +59,28 @@
 
 
 <script>
-
 export default {
   name: "Card",
 
   props: {
-    scenicSpot: Object,
+    travelData: Object,
   },
   
-  // data() {
-  //   return {
-  //     scenicSpot: {
-  //       Name: "哈巴狗與睡美人岩",
-  //       OpenTime: "全天候開放",
-  //       PictureUrl1: "https://www.eastcoast-nsa.gov.tw/image/29064/640x480",
-  //       Adress: "臺東縣951綠島鄉溫泉路167號",
-  //       Description: "早期稱為柵口，後來更名為「柴口」，為綠島主要浮潛區之一。海岸地形以珊瑚裙礁為主體",
-  //       TicketInfo: "免費",
-  //       Phone: "886-8-9672026",
-  //       Class1: "自然風景類",
-  //     }
-  //   }
-  // }
+  computed: {
+    trimOpenTime() {
+      if(!this.travelData.OpenTime) return
+      if (this.travelData.OpenTime.length > 30) {
+       return this.travelData.OpenTime
+          .toString()
+          .split('；')
+          .filter(time => time.includes('Sun'))[0]
+          .toString()
+      }
+      return this.travelData.OpenTime
+    }
+  },
+  
 };
-
 </script>
 
 <style lang="scss" scoped>
@@ -71,13 +88,16 @@ export default {
 
   .card {
     width: 294px;
-    height: 346px;
+    // height: 346px;
     box-shadow: 2px 2px 4px rgba(114, 142, 171, 0.1), -6px -6px 20px rgba(255, 255, 255, 0.6), 4px 4px 20px rgba(111, 140, 176, 0.41);
   
   &-image {
+    width: 100%;
     height: 184px;
 
     img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
   }
