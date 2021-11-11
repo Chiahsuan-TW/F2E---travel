@@ -17,9 +17,10 @@
       <button type="button" class="btn btn-primary moreInfo" data-bs-toggle="modal" data-bs-target="#exampleModal">
         了解更多
       </button>
+      
 
     <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div v-show="true" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -59,9 +60,17 @@
 
 
 <script>
+// import Modal from 'bootstrap/js/dist/modal';
+// // import 'bootstrap/dist/css/bootstrap.min.css'
+
+
 export default {
   name: "Card",
-
+  data() {
+    return {
+      // modal: null,
+    }
+  },
   props: {
     travelData: Object,
   },
@@ -79,7 +88,15 @@ export default {
       return this.travelData.OpenTime
     }
   },
-  
+  // methods: {
+  //   showModal() {
+  //     this.modal.show();
+  //     console.log('DDD')
+  //   },
+  // },
+  // mounted () {
+  //   this.modal = new Modal(this.$refs.modal);
+  // },
 };
 </script>
 

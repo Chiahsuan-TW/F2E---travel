@@ -1,21 +1,21 @@
 <template>
   <Navbar />
-  <div id="nav">
-    
-  </div>
   <router-view />
+  <Footer />
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 
 
 export default {
   components: {
-    Navbar,
-  }
+    Navbar, Footer,
+  },
+  
 }
 </script>
 

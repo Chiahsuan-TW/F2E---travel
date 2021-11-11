@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from '../views/Home'
+import Search from '../views/Search'
 
 const routes = [
   {
@@ -8,8 +9,14 @@ const routes = [
     component: Home,
   },
   {
+    path: "/search/:cityName",
+    name: "Search",
+    props: true,
+    component: Search,
+  },
+  {
     path: "/scenic-tour",
-    name: "scenic-tour",
+    name: "ScenicTour",
     component: () => import('../views/ScenicTour.vue')
   },
   {
@@ -17,7 +24,6 @@ const routes = [
     name: "Events",
     component: () => import('../views/Events.vue')
   },
-  
 ];
 
 const router = createRouter({

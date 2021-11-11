@@ -1,5 +1,5 @@
 <template>
-  <Swiper />
+  <Swiper @on-submit="getData"/>
 
   <div class="container">
     <div class="intro">
@@ -12,20 +12,18 @@
     </div>
   </div>
   
-  <Footer />
 </template>
 
 
 <script>
 import Swiper from '../components/Swiper.vue';
 import Card from '../components/Card.vue';
-import Footer from '../components/Footer.vue';
 import API from '@/services/API.js'
 
 export default {
   name: "Events",
   components: {
-    Swiper, Card, Footer,
+    Swiper, Card,
   }, 
 
   data() {
@@ -42,6 +40,18 @@ export default {
     .catch(error => {
       console.log(error)
     })
+  },
+  methods: {
+    getData(keyword) {
+      API.getCityEvents(keyword)
+          .then( response => {
+      this.events = response.data
+    })
+          .catch(error => {
+          console.log(error)
+      })
+      this.$router.push(`/search/${keyword}`)
+    }
   }
 }
 </script>

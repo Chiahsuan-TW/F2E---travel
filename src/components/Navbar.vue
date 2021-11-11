@@ -1,13 +1,13 @@
 <template>
   <header>
-    <router-link to="/" class="website-title">
+    <router-link :to="{name: 'Home'}" class="website-title">
       <div class="website-logo"><img src="../assets/images/logo.png" alt=""></div>
       <h1 class="website-name">Travel Taiwan</h1>
     </router-link>
     <nav>
-      <router-link to="/">首頁</router-link>
-      <router-link to="/scenic-tour">景點導覽</router-link>
-      <router-link to="events">觀光活動</router-link>
+      <router-link :to="{name: 'Home'}">首頁</router-link>
+      <router-link :to="{name: 'ScenicTour'}">景點導覽</router-link>
+      <router-link :to="{name: 'Events'}">觀光活動</router-link>
     </nav>
   </header>
 </template>

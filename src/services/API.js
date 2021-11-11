@@ -7,7 +7,7 @@ const API = axios.create({
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: getAuthorizationHeader()
+    ...getAuthorizationHeader()
   }
 })
 
@@ -29,7 +29,13 @@ export default {
   getScenicSpots() {
     return API.get('/ScenicSpot?$top=8&$format=JSON')
   },
+  getCityScenicSpots(cityName) {
+    return API.get(`/ScenicSpot/${cityName}?$top=8&$format=JSON`)
+  },
   getEvents() {
     return API.get('/Activity?$top=8&$format=JSON')
-  }
+  },
+  getCityEvents(cityName) {
+    return API.get(`/Activity/${cityName}?$top=8&$format=JSON`)
+  },
 }

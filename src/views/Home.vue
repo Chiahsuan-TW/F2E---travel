@@ -1,5 +1,5 @@
 <template>
-  <Swiper :banner="homeBanner"/>
+  <Swiper @on-submit="getData"/>
 
   <div class="container">
     <div class="intro">
@@ -11,36 +11,49 @@
     </div>
   </div>
   
-  <Footer />
+  
 </template>
 
 
 <script>
 import Swiper from '../components/Swiper.vue';
 import Card from '../components/Card.vue';
-import Footer from '../components/Footer.vue';
 import API from '@/services/API.js'
 
 export default {
   name: "Home",
   components: {
-    Swiper, Card, Footer, 
+    Swiper,
+    Card, 
   }, 
 
   data() {
     return {
-      homeBanner: "@/assets/images/banner1.png",
       scenicSpots: null,
     }
   },
   created() {
     API.getScenicSpots()
     .then( response => {
+      console.log(response)
       this.scenicSpots = response.data
     })
     .catch(error => {
       console.log(error)
     })
+  },
+  methods: {
+    getData(keyword) {
+      API.getCityScenicSpots(keyword)
+          .then( response => {
+      this.scenicSpots = response.data
+    })
+          .catch(error => {
+          console.log(error)
+      })
+        this.$router.push(`/search/${keyword}`)
+    },
+    
   }
 }
 </script>

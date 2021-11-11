@@ -12,29 +12,56 @@
       </div>
       <div class="select">
         <div class="dropdown county">
-          <label @click="toggleShowCounty" for="">{{selectedCounty || '所有縣市'}}</label>
-          <label v-show="showCounty" v-for="(county, index) in counties" :key="index" :for="county">{{county}}</label>
-          <input v-model="selectedCounty" v-for="(county, index) in counties" :key="index" :value="county" type="radio" :id="county" name="county">
+          <label @click="toggleShowCounty" for="">{{selectedCounty.name || '所有縣市'}}</label>
+          <label v-show="showCounty" v-for="(county, index) in counties" :key="index" :for="county.name">{{county.name}}</label>
+          <input v-model="selectedCounty" v-for="(county, index) in counties" :key="index" :value="county" type="radio" :id="county.name" name="county">
         </div>
       </div>
-      <input @submit.prevent="onSubmit" type="submit">
+      <input @click.prevent="onSubmit" type="submit">
       
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "Swiper",
   
   data() {
     return {
-      categories: ["所有類別", "自然風景", "體育健身", "遊憩類", "古蹟類"],
-      counties: ["基隆市", "嘉義市", "台北市", "嘉義縣", "新北市", "台南市", "桃園縣", "高雄市", "新竹市", "屏東縣", "新竹縣", "台東縣", "苗栗縣", "花蓮縣", "台中市", "宜蘭縣", "彰化縣", "澎湖縣", "南投縣", "金門縣", "雲林縣", "連江縣"],
       selectedCategory: "",
-      selectedCounty: "",
+      selectedCounty: {},
       showCategory: false,
       showCounty: false,
+    }
+  },
+  computed: {
+    categories() {
+      return ["所有類別", "自然風景", "體育健身", "遊憩類", "古蹟類"]
+    },
+    counties() {
+      return [
+        {name: "基隆市", keyword: "Keelung"},
+        {name: "嘉義市", keyword: "Chiayi"},
+        {name: "台北市", keyword: "Taipei"},
+        {name: "嘉義縣", keyword: "ChiayiCounty"},
+        {name: "新北市", keyword: "NewTaipei"},
+        {name: "台南市", keyword: "Tainan"},
+        {name: "高雄市", keyword: "Kaohsiung"},
+        {name: "新竹市", keyword: "Hsinchu"},
+        {name: "台東縣", keyword: "TaitungCounty"},
+        {name: "苗栗縣", keyword: "MiaoliCounty"},
+        {name: "花蓮縣", keyword: "HualienCounty"},
+        {name: "台中市", keyword: "Taichung"},
+        {name: "宜蘭縣", keyword: "YilanCounty"},
+        {name: "彰化縣", keyword: "ChanghuaCounty"},
+        {name: "澎湖縣", keyword: "PenghuCounty"},
+        {name: "南投縣", keyword: "NantouCounty"},
+        {name: "金門縣", keyword: "KinmenCounty"},
+        {name: "雲林縣", keyword: "YunlinCounty"},
+        {name: "連江縣", keyword: "LienchiangCounty"},
+      ]
     }
   },
   methods: {
@@ -45,8 +72,8 @@ export default {
       this.showCounty = !this.showCounty
     },
     onSubmit() {
-      console.log('TEST')
-    }
+      this.$emit('on-submit', this.selectedCounty.keyword)
+    },
   },
 
   watch: {
@@ -58,7 +85,8 @@ export default {
     selectedCounty: {
       handler: function() {
         this.toggleShowCounty()
-      }
+      },
+      deep: true,
     }
   }
 }
@@ -120,7 +148,7 @@ export default {
 
         &:first-child {
           background: url('../assets/images/triangle.png') no-repeat;
-          background-position: right 20px center;
+          background-position: right 10px center;
         }
 
         &:not(:first-child):hover {
@@ -129,14 +157,10 @@ export default {
       }
     }
 
-    
-
     input {
       display: none;
     }
   }
-
-
 
   .dropdown.category {
     width: 120px;
