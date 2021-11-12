@@ -8,7 +8,8 @@
 等你一同來發現這座寶島的奧妙！</p>
     </div>
     <div class="card-container">
-      <Card v-for="event in events" :key="event.ID" :travelData="event"/>
+      <Card v-for="event in events" :key="event.ID" :travelData="event" @click="specificID(event)"/>
+      <Modal :travelData="modalData" />
     </div>
   </div>
   
@@ -18,17 +19,19 @@
 <script>
 import Swiper from '../components/Swiper.vue';
 import Card from '../components/Card.vue';
+import Modal from '../components/Modal.vue';
 import API from '@/services/API.js'
 
 export default {
   name: "Events",
   components: {
-    Swiper, Card,
+    Swiper, Card, Modal,
   }, 
 
   data() {
     return {
       events: null,
+      modalData: {}
     }
   },
   created() {
@@ -42,6 +45,9 @@ export default {
     })
   },
   methods: {
+    specificID(event) {
+      this.modalData = event;
+    },
     getData(keyword) {
       API.getCityEvents(keyword)
           .then( response => {
@@ -50,7 +56,7 @@ export default {
           .catch(error => {
           console.log(error)
       })
-      this.$router.push(`/search/${keyword}`)
+      // this.$router.push(`/search/${keyword}`)
     }
   }
 }
@@ -64,8 +70,7 @@ export default {
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    position: relative;
-    z-index: -1;
+    
 
     @media(min-width: 576px) {
       flex-direction: row;

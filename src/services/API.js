@@ -27,7 +27,7 @@ function getAuthorizationHeader() {
 
 export default {
   getScenicSpots() {
-    return API.get('/ScenicSpot?$top=8&$format=JSON')
+    return API.get('/ScenicSpot?$top=20&$format=JSON')
   },
   getCityScenicSpots(cityName) {
     return API.get(`/ScenicSpot/${cityName}?$top=8&$format=JSON`)

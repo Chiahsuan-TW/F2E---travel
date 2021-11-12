@@ -7,7 +7,8 @@
       <p>台灣的各個美景，都美不勝收。等你一同來發現這座寶島的奧妙！</p>
     </div>
     <div class="card-container">
-      <Card v-for="scenicSpot in scenicSpots" :key="scenicSpot.ID" :travelData="scenicSpot"/>
+      <Card v-for="scenicSpot in scenicSpots" :key="scenicSpot.ID" :travelData="scenicSpot" @click="specificID(scenicSpot)"/>
+      <Modal :travelData="modalData" />
     </div>
   </div>
   
@@ -18,24 +19,25 @@
 <script>
 import Swiper from '../components/Swiper.vue';
 import Card from '../components/Card.vue';
+import Modal from '../components/Modal.vue';
 import API from '@/services/API.js'
 
 export default {
   name: "Home",
   components: {
     Swiper,
-    Card, 
+    Card,
+    Modal
   }, 
-
   data() {
     return {
       scenicSpots: null,
+      modalData:{}
     }
   },
   created() {
     API.getScenicSpots()
     .then( response => {
-      console.log(response)
       this.scenicSpots = response.data
     })
     .catch(error => {
@@ -43,6 +45,9 @@ export default {
     })
   },
   methods: {
+    specificID(scenicSpot) {
+      this.modalData = scenicSpot
+    },
     getData(keyword) {
       API.getCityScenicSpots(keyword)
           .then( response => {
@@ -51,9 +56,9 @@ export default {
           .catch(error => {
           console.log(error)
       })
-        this.$router.push(`/search/${keyword}`)
+      // this.$router.push(`/search/${keyword}`)
     },
-    
+
   }
 }
 </script>
@@ -66,8 +71,6 @@ export default {
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    position: relative;
-    z-index: -1;
 
     @media(min-width: 576px) {
       flex-direction: row;

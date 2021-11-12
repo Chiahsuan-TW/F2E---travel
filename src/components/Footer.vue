@@ -16,12 +16,6 @@
 export default {
   name: "Footer",
 
-  data() {
-    return {
-      
-
-    }
-  },
   methods: {
     scrollToTop() {
       window.scrollTo({top: 0, behavior: 'smooth'})

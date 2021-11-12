@@ -8,7 +8,8 @@
 等你一同來發現這座寶島的奧妙！</p>
     </div>
     <div class="card-container">
-      <Card v-for="tour in tours" :key="tour.ID" :travelData="tour"/>
+      <Card v-for="tour in tours" :key="tour.ID" :travelData="tour" @click="specificID(tour)"/>
+      <Modal :travelData="modalData"/>
     </div>
   </div>
 
@@ -18,18 +19,20 @@
 <script>
 import Swiper from '../components/Swiper.vue';
 import Card from '../components/Card.vue';
+import Modal from '../components/Modal.vue';
 import API from '@/services/API.js'
 
 
 export default {
   name: "Tours",
   components: {
-    Swiper, Card,
+    Swiper, Card, Modal,
   }, 
 
   data() {
     return {
       tours: null,
+      modalData: {},
     }
   },
   created() {
@@ -43,6 +46,9 @@ export default {
     })
   },
   methods: {
+    specificID(card) {
+      this.modalData = card
+    },
     getData(keyword) {
       API.getCityScenicSpots(keyword)
           .then( response => {
@@ -64,8 +70,6 @@ export default {
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    position: relative;
-    z-index: -1;
 
     @media(min-width: 576px) {
       flex-direction: row;

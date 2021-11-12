@@ -75,7 +75,6 @@ export default {
       this.$emit('on-submit', this.selectedCounty.keyword)
     },
   },
-
   watch: {
     selectedCategory: {
       handler: function() {
@@ -135,6 +134,8 @@ export default {
 .dropdown {
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 99;
     width: 175px;
     background: #FFFFFF;
     box-shadow: 4px 4px 11px rgba(0, 0, 0, 0.25);
