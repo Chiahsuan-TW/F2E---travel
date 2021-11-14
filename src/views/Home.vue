@@ -56,16 +56,26 @@ export default {
           .catch(error => {
           console.log(error)
       })
-      // this.$router.push(`/search/${keyword}`)
+      this.$router.push({ name: 'Home', query: { search: `${keyword}`} })
     },
-
-  }
+  },
+  computed: {
+      getCardsByPage() {
+        const CARDS_PER_PAGE = 8;
+        const startIndex = (1 - 1) * CARDS_PER_PAGE
+        console.log(this.ScenicSpots.slice(startIndex, startIndex + CARDS_PER_PAGE))
+        return this.ScenicSpots.slice(startIndex, startIndex + CARDS_PER_PAGE)
+      }
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 @use '../assets/scss/typography.scss';
 
+  .container {
+    padding: 40px;
+  }
   .card-container {
     display: flex;
     flex-direction: column;
@@ -80,6 +90,8 @@ export default {
   }
 
   .intro {
+    margin-bottom: 30px;
+
     h2 {
       font-size: 20px;
       color: typography.$primary-color;

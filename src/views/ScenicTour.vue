@@ -1,6 +1,5 @@
 <template>
   <Swiper @on-submit="getData"/>
-
   <div class="container">
     <div class="intro">
       <h2>熱門景點</h2>
@@ -12,7 +11,6 @@
       <Modal :travelData="modalData"/>
     </div>
   </div>
-
 </template>
 
 
@@ -57,6 +55,7 @@ export default {
           .catch(error => {
           console.log(error)
       })
+      this.$router.push({ name: 'ScenicTour', query: { search: `${keyword}`} })
     }
   }
 }
@@ -65,6 +64,9 @@ export default {
 <style lang="scss" scoped>
 @use '../assets/scss/typography.scss';
 
+  .container {
+    padding: 40px;
+  }
   .card-container {
     display: flex;
     flex-direction: column;
@@ -79,6 +81,8 @@ export default {
   }
 
   .intro {
+    margin-bottom: 30px;
+    
     h2 {
       font-size: 20px;
       color: typography.$primary-color;

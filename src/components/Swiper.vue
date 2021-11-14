@@ -18,7 +18,6 @@
         </div>
       </div>
       <input @click.prevent="onSubmit" type="submit">
-      
     </div>
   </div>
 </template>
@@ -96,6 +95,9 @@ export default {
   @use '../assets/scss/typography.scss';
 
   .banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     width: 100%;
     height: 75vh;
@@ -109,15 +111,15 @@ export default {
       background-position: center center;
     }
 
-    &-content {
+    .banner-content {
       width: fit-content;
+      height: fit-content;
       position: absolute;
-      top: 112px;
-      left: 38px;
-      width: 90%;
+      top: 30%;
     }
 
     h2 {
+      flex-basis: 100%;
       font-style: italic;
       font-weight: bold;
       font-size: 26px;
@@ -125,6 +127,8 @@ export default {
       text-shadow: 6px 8px 12px rgba(0, 0, 0, 0.49);
     }
   }
+
+
 
 .select {
   display: inline-block;
@@ -167,6 +171,15 @@ export default {
     width: 120px;
   }
 
-
+input[type="submit"] {
+  background: url('../assets/images/magnifier.png') no-repeat;
+  background-position: center center;
+  font-size: 0;
+  border: 0;
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+  background-color: typography.$primary-color;
+}
 
 </style>

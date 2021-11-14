@@ -11,7 +11,7 @@
       </div>
       <div class="card-content-detail">
         <div class="pin"><img src="../assets/images/pin.png" alt=""></div>
-        <p>{{travelData.Address}}</p>
+        <p>{{travelData.Address || '未提供地址'}}</p>
       </div>
       
       <!-- Button trigger modal -->
@@ -57,11 +57,16 @@ export default {
   &-image {
     width: 100%;
     height: 184px;
+    overflow: hidden;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: all 1s;
+    }
+    img:hover {
+      transform: scale(1.5);
     }
   }
   
